@@ -1,8 +1,6 @@
 {
     "name": "structured-bytes",
     "license": "MIT",
-    "version": "0.1.0",
-    "exports": "./src/main.ts",
     "description": "Simple library to serialize and deserialize structured binary data.",
     "author": {
         "name": "KollPotato",
