@@ -1,0 +1,31 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+    "organizeImports": {
+        "enabled": true
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "all": true,
+            "style": {
+                "all": true
+            },
+            "performance": {
+                "all": false
+            }
+        }
+    },
+    "formatter": {
+        "enabled": true,
+        "indentWidth": 4,
+        "indentStyle": "space",
+        "lineWidth": 80,
+        "lineEnding": "lf"
+    },
+    "javascript": {
+        "formatter": {
+            "enabled": true,
+            "semicolons": "asNeeded"
+        }
+    }
+}
