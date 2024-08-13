@@ -1,5 +1,12 @@
 {
     "name": "@kollpotato/structured-bytes",
     "version": "0.1.0",
-    "exports": "./src/index.ts"
+    "exports": "./src/index.ts",
+    "publish": {
+        "include": [
+          "LICENSE",
+          "README.md",
+          "src/**/*.ts"
+        ]
+    }
 }
