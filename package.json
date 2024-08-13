@@ -1,12 +1,16 @@
 {
     "name": "structured-bytes",
+    "license": "MIT",
+    "description": "Simple library to serialize and deserialize structured binary data.",
     "module": "src/main.ts",
     "author": {
         "name": "KollPotato",
         "email": "kollpotato@gmail.com"
     },
-    "homepage": "",
-    "license": "MIT",
+    "homepage": "https://github.com/KollPotato/structured-bytes",
+    "repository": {
+        "url": "https://github.com/KollPotato/structured-bytes"
+    },
     "type": "module",
     "devDependencies": {
         "@biomejs/biome": "1.8.3",
