@@ -4,10 +4,12 @@ export const i8: Type<number> = {
     size(_value) {
         return 1
     },
-    read(buffer, offset) {
-        return buffer.readInt8(offset)
+    read(dataView, offset) {
+        return dataView.getInt8(offset)
     },
-    write(buffer, value, offset) {
-        return buffer.writeInt8(value, offset)
+    write(dataView, value, offset) {
+        dataView.setInt8(offset, value)
+
+        return offset + this.size(value)
     },
 }

@@ -4,10 +4,10 @@ export const f64be: Type<number> = {
     size(_value) {
         return 2
     },
-    read(buffer, offset) {
-        return buffer.readDoubleBE(offset)
+    read(dataView, offset) {
+        return dataView.getFloat64(offset)
     },
-    write(buffer, value, offset) {
-        return buffer.writeDoubleBE(value, offset)
+    write(dataView, value, offset) {
+        dataView.setFloat64(offset, value)
     },
 }

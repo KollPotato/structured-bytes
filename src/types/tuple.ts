@@ -17,13 +17,13 @@ export function tuple<T extends Type<unknown>[]>(
 
             return size
         },
-        read(buffer, offset) {
+        read(dataView, offset) {
             const result: unknown[] = []
 
             let newOffset = offset
 
             for (const type of fields) {
-                const value = type.read(buffer, newOffset)
+                const value = type.read(dataView, newOffset)
 
                 result.push(value)
 
@@ -32,11 +32,16 @@ export function tuple<T extends Type<unknown>[]>(
 
             return result as TupleType<T>
         },
-        write(buffer, values, offset) {
+        write(dataView, values, offset) {
             let newOffset = offset
 
             for (let i = 0; i < values.length; i += 1) {
-                newOffset = fields[i].write(buffer, values[i], newOffset)
+                const field = fields[i]
+                const value = values[i]
+
+                field.write(dataView, value, newOffset)
+
+                newOffset += field.size(value)
             }
 
             return offset

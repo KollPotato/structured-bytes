@@ -13,26 +13,26 @@ export function option<T>(valueType: Type<T>): Type<T | undefined> {
 
             return 1 + valueType.size(value)
         },
-        read(buffer, offset) {
-            const tag = OPTION_TAG_TYPE.read(buffer, offset)
+        read(dataView, offset) {
+            const tag = OPTION_TAG_TYPE.read(dataView, offset)
 
             if (tag === SOME_VALUE) {
-                return valueType.read(buffer, OPTION_TAG_TYPE.size(tag))
+                return valueType.read(dataView, OPTION_TAG_TYPE.size(tag))
             }
 
             return undefined
         },
-        write(buffer, value, offset) {
+        write(dataView, value, offset) {
             const tag = value === undefined ? NONE_VALUE : SOME_VALUE
 
-            OPTION_TAG_TYPE.write(buffer, tag, 0)
+            OPTION_TAG_TYPE.write(dataView, tag, 0)
 
             if (value === undefined) {
                 return OPTION_TAG_TYPE.size(tag)
             }
 
             return valueType.write(
-                buffer,
+                dataView,
                 value,
                 offset + OPTION_TAG_TYPE.size(tag),
             )

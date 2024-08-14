@@ -5,10 +5,10 @@ export const bool: Type<boolean> = {
     size(_value) {
         return 1
     },
-    read(buffer, offset) {
-        return u8.read(buffer, offset) === 1
+    read(dataView, offset) {
+        return u8.read(dataView, offset) === 1
     },
-    write(buffer, value, offset) {
-        return u8.write(buffer, value ? 1 : 0, offset)
+    write(dataView, value, offset) {
+        return u8.write(dataView, value ? 1 : 0, offset)
     },
 }

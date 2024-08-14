@@ -4,10 +4,10 @@ export const f32: Type<number> = {
     size(_value) {
         return 4
     },
-    read(buffer, offset) {
-        return buffer.readFloatLE(offset)
+    read(dataView, offset) {
+        return dataView.getFloat32(offset, true)
     },
-    write(buffer, value, offset) {
-        return buffer.writeFloatLE(value, offset)
+    write(dataView, value, offset) {
+        dataView.setFloat32(offset, value, true)
     },
 }

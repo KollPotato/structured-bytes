@@ -1,32 +1,68 @@
 import type { Type } from "../type"
 
-export function string(lengthType: Type<number>): Type<string> {
-    const encoder = new TextEncoder()
-    const decoder = new TextDecoder()
+export function ascii(lengthType: Type<number>): Type<string> {
+    return {
+        size(value) {
+            return lengthType.size(value.length) + value.length
+        },
+        read(dataView, offset) {
+            const length = lengthType.read(dataView, offset)
+
+            let newOffset = offset + lengthType.size(length)
+
+            let result = ""
+
+            for (let i = 0; i < length; i += 1) {
+                result += String.fromCodePoint(dataView.getUint8(newOffset))
+                newOffset += 1
+            }
+
+            return result
+        },
+        write(dataView, value, offset) {
+            const length = value.length
+
+            lengthType.write(dataView, length, offset)
+
+            let newOffset = offset + lengthType.size(length)
+
+            for (let i = 0; i < length; i += 1) {
+                dataView.setUint8(newOffset, value.charCodeAt(i))
+
+                newOffset += 1
+            }
+        },
+    }
+}
+
+export function utf8(lengthType: Type<number>): Type<string> {
+    const textDecoder = new TextDecoder()
 
     return {
         size(value) {
-            return (
-                lengthType.size(value.length) + encoder.encode(value).byteLength
-            )
+            return lengthType.size(value.length)
         },
-        read(buffer, offset) {
-            const length = lengthType.read(buffer, offset)
+        read(dataView, offset) {
+            const length = lengthType.read(dataView, offset)
 
             const newOffset = offset + lengthType.size(length)
 
-            return decoder.decode(
-                buffer.subarray(newOffset, newOffset + length),
+            return textDecoder.decode(
+                dataView.buffer.slice(newOffset, newOffset + length),
             )
         },
-        write(buffer, value, offset) {
-            const chars = encoder.encode(value)
+        write(dataView, value, offset) {
+            lengthType.write(dataView, value.length, offset)
 
-            const newOffset = lengthType.write(buffer, chars.byteLength, offset)
+            let newOffset = offset + lengthType.size(value.length)
 
-            buffer.set(chars, newOffset)
+            const encodedString = encodeURIComponent(value)
 
-            return newOffset + chars.byteLength
+            for (let i = 0; i < encodedString.length; i += 1) {
+                dataView.setUint8(newOffset, encodedString.charCodeAt(i))
+
+                newOffset += 1
+            }
         },
     }
 }

@@ -4,10 +4,10 @@ export const i16: Type<number> = {
     size(_value) {
         return 2
     },
-    read(buffer, offset) {
-        return buffer.readInt16LE(offset)
+    read(dataView, offset) {
+        return dataView.getInt16(offset, true)
     },
-    write(buffer, value, offset) {
-        return buffer.writeInt16LE(value, offset)
+    write(dataView, value, offset) {
+        dataView.setInt16(offset, value, true)
     },
 }

@@ -4,10 +4,10 @@ export const u16be: Type<number> = {
     size(_value) {
         return 2
     },
-    read(buffer, offset) {
-        return buffer.readUInt16BE(offset)
+    read(dataView, offset) {
+        return dataView.getUint16(offset)
     },
-    write(buffer, value, offset) {
-        return buffer.writeUInt16BE(value, offset)
+    write(dataView, value, offset) {
+        dataView.setUint16(offset, value)
     },
 }

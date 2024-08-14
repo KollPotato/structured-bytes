@@ -4,10 +4,10 @@ export const u32: Type<number> = {
     size(_value) {
         return 4
     },
-    read(buffer, offset) {
-        return buffer.readUInt32LE(offset)
+    read(dataView, offset) {
+        return dataView.getUint32(offset, true)
     },
-    write(buffer, value, offset) {
-        return buffer.writeUInt32LE(value, offset)
+    write(dataView, value, offset) {
+        dataView.setUint32(offset, value, true)
     },
 }

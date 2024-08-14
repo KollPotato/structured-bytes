@@ -21,13 +21,13 @@ export function struct<T extends Record<string, Type<unknown>>>(
 
             return size
         },
-        read(buffer, offset) {
+        read(dataView, offset) {
             const result: Record<string, unknown> = {}
 
             let newOffset = offset
 
             for (const [field, fieldType] of Object.entries(fields)) {
-                const value = fieldType.read(buffer, newOffset)
+                const value = fieldType.read(dataView, newOffset)
                 newOffset += fieldType.size(value)
 
                 result[field] = value
@@ -35,13 +35,18 @@ export function struct<T extends Record<string, Type<unknown>>>(
 
             return result as StructType<T>
         },
-        write(buffer, structure, offset) {
+        write(dataView, structure, offset) {
             const values = Object.values(structure)
 
             let newOffset = offset
 
             for (let i = 0; i < fieldTypes.length; i += 1) {
-                newOffset = fieldTypes[i].write(buffer, values[i], newOffset)
+                const value = values[i]
+                const field = fieldTypes[i]
+
+                field.write(dataView, value, newOffset)
+
+                newOffset += field.size(value)
             }
 
             return offset

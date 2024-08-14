@@ -14,15 +14,15 @@ export function vector<T>(
 
             return lengthType.size(values.length) + size
         },
-        read(buffer, offset) {
-            const length = lengthType.read(buffer, offset)
+        read(dataView, offset) {
+            const length = lengthType.read(dataView, offset)
 
             let newOffset = offset + lengthType.size(length)
 
             const result: T[] = []
 
             for (let i = 0; i < length; i += 1) {
-                const value = valueType.read(buffer, newOffset)
+                const value = valueType.read(dataView, newOffset)
 
                 newOffset += valueType.size(value)
 
@@ -31,11 +31,17 @@ export function vector<T>(
 
             return result
         },
-        write(buffer, value, offset) {
-            let newOffset = lengthType.write(buffer, value.length, offset)
+        write(dataView, value, offset) {
+            const length = value.length
+
+            let newOffset = offset
+
+            lengthType.write(dataView, length, offset)
+            newOffset += lengthType.size(length)
 
             for (const element of value) {
-                newOffset = valueType.write(buffer, element, newOffset)
+                valueType.write(dataView, element, newOffset)
+                newOffset += valueType.size(element)
             }
 
             return offset

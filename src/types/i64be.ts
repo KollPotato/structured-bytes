@@ -4,10 +4,10 @@ export const i64be: Type<bigint> = {
     size(_value) {
         return 8
     },
-    read(buffer, offset) {
-        return buffer.readBigInt64BE(offset)
+    read(dataView, offset) {
+        return dataView.getBigInt64(offset)
     },
-    write(buffer, value, offset) {
-        return buffer.writeBigInt64BE(value, offset)
+    write(dataView, value, offset) {
+        dataView.setBigInt64(offset, value)
     },
 }

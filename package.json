@@ -6,6 +6,10 @@
         "name": "KollPotato",
         "email": "kollpotato@gmail.com"
     },
+    "scripts": {
+        "lint": "biome lint",
+        "format": "biome format"
+    },
     "homepage": "https://github.com/KollPotato/structured-bytes",
     "repository": {
         "url": "https://github.com/KollPotato/structured-bytes"
