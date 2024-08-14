@@ -1,4 +1,4 @@
-import { ascii, bool, u32, u8, vector } from "../src"
+import { ascii, bool, u32, u8, utf8, vector } from "../src"
 import { describe, test, expect } from "bun:test"
 
 describe("u32", () => {
@@ -19,6 +19,19 @@ describe("string", () => {
         const data = "hello, world!\n"
 
         const schema = ascii(u8)
+
+        const buffer = Buffer.alloc(schema.size(data))
+        const dataView = new DataView(buffer.buffer)
+
+        schema.write(dataView, data, 0)
+
+        expect(data).toEqual(schema.read(dataView, 0))
+    })
+
+    test("reading and writing utf8 string", () => {
+        const data = "привет, мир!\n"
+
+        const schema = utf8(u8)
 
         const buffer = Buffer.alloc(schema.size(data))
         const dataView = new DataView(buffer.buffer)
