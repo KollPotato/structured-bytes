@@ -55,11 +55,13 @@ export function utf8(lengthType: Type<number>): Type<string> {
             )
         },
         write(dataView, value, offset) {
-            lengthType.write(dataView, value.length, offset)
+            const bytes = textEncoder.encode(value)
+
+            lengthType.write(dataView, bytes.length, offset)
 
             let newOffset = offset + lengthType.size(value.length)
 
-            for (const byte of textEncoder.encode(value)) {
+            for (const byte of bytes) {
                 dataView.setUint8(newOffset, byte)
 
                 newOffset += 1
