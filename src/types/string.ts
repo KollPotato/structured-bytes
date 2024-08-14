@@ -36,11 +36,14 @@ export function ascii(lengthType: Type<number>): Type<string> {
 }
 
 export function utf8(lengthType: Type<number>): Type<string> {
+    const textEncoder = new TextEncoder()
     const textDecoder = new TextDecoder()
 
     return {
         size(value) {
-            return lengthType.size(value.length)
+            return (
+                lengthType.size(value.length) + textEncoder.encode(value).length
+            )
         },
         read(dataView, offset) {
             const length = lengthType.read(dataView, offset)
@@ -56,10 +59,8 @@ export function utf8(lengthType: Type<number>): Type<string> {
 
             let newOffset = offset + lengthType.size(value.length)
 
-            const encodedString = encodeURIComponent(value)
-
-            for (let i = 0; i < encodedString.length; i += 1) {
-                dataView.setUint8(newOffset, encodedString.charCodeAt(i))
+            for (const byte of textEncoder.encode(value)) {
+                dataView.setUint8(newOffset, byte)
 
                 newOffset += 1
             }
