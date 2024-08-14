@@ -10,7 +10,7 @@ describe("u32", () => {
 
         u32.write(dataView, value, 0)
 
-        expect(value).toEqual(u32.read(dataView, 0))
+        expect(u32.read(dataView, 0)).toEqual(value)
     })
 })
 
@@ -25,7 +25,7 @@ describe("string", () => {
 
         schema.write(dataView, data, 0)
 
-        expect(data).toEqual(schema.read(dataView, 0))
+        expect(schema.read(dataView, 0)).toEqual(data)
     })
 
     test("reading and writing utf8 string", () => {
@@ -38,7 +38,7 @@ describe("string", () => {
 
         schema.write(dataView, data, 0)
 
-        expect(data).toEqual(schema.read(dataView, 0))
+        expect(schema.read(dataView, 0)).toEqual(data)
     })
 })
 
@@ -54,7 +54,7 @@ describe("vector", () => {
 
         const decodedData = schema.read(dataView, 0)
 
-        expect(data).toEqual(decodedData)
+        expect(decodedData).toEqual(data)
     })
 })
 
