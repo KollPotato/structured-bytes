@@ -1,6 +1,11 @@
 import type { Type } from "../type"
 import { u8 } from "./u8"
 
+/**
+ * @description boolean value which represents either `true` or `false` \
+ * it is stored as an unsigned 8-bit integer \
+ * uses 1 byte
+ */
 export const bool: Type<boolean> = {
     size(_value) {
         return 1

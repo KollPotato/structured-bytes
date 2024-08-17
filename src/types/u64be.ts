@@ -1,5 +1,8 @@
 import type { Type } from "../type"
 
+/**
+ * @description unsigned 64-bit big-endian integer
+ */
 export const u64be: Type<bigint> = {
     size(_value) {
         return 8

@@ -4,6 +4,10 @@ export type TupleType<T extends Type<unknown>[]> = {
     [K in keyof T]: Infer<T[K]>
 }
 
+/**
+ * @description stores types in the defined sequence
+ * @param fields array of types which will be stored in the same sequence
+ */
 export function tuple<T extends Type<unknown>[]>(
     ...fields: T
 ): Type<TupleType<T>> {

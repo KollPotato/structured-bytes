@@ -4,6 +4,10 @@ import { NONE_VALUE, SOME_VALUE } from "../constants"
 
 const OPTION_TAG_TYPE = u8
 
+/**
+ * @param valueType the value which can be stored either as `T` or `undefined`
+ * @returns a new type which can be undefined
+ */
 export function option<T>(valueType: Type<T>): Type<T | undefined> {
     return {
         size(value) {

@@ -1,5 +1,8 @@
 import type { Type } from "../type"
 
+/**
+ * @description unsigned 8-bit integer
+ */
 export const u8: Type<number> = {
     size(_value) {
         return 1

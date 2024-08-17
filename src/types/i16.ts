@@ -1,5 +1,6 @@
 import type { Type } from "../type"
 
+
 export const i16: Type<number> = {
     size(_value) {
         return 2

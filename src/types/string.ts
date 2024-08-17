@@ -1,5 +1,9 @@
 import type { Type } from "../type"
 
+/**
+ * @description stores the string in ascii format
+ * @param lengthType the length which will be used to the string bytes
+ */
 export function ascii(lengthType: Type<number>): Type<string> {
     return {
         size(value) {

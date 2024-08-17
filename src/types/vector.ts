@@ -1,5 +1,10 @@
 import type { Type } from "../type"
 
+/**
+ * a sequence of values prefixed by its length
+ * @param valueType the value which will be stored in a sequence
+ * @param lengthType the length type which will be used to store the sequence
+ */
 export function vector<T>(
     valueType: Type<T>,
     lengthType: Type<number>,

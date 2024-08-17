@@ -1,5 +1,8 @@
 import type { Type } from "../type"
 
+/**
+ * @description unsigned 32-bit little-endian integer
+ */
 export const u32: Type<number> = {
     size(_value) {
         return 4

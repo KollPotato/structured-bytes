@@ -4,6 +4,10 @@ export type StructType<T extends Record<string, Type<unknown>>> = {
     [K in keyof T]: Infer<T[K]>
 }
 
+/**
+ * @description acts pretty much the same as a tuple - only values are stored and are always in the same sequence
+ * @param fields the structure of the data
+ */
 export function struct<T extends Record<string, Type<unknown>>>(
     fields: T,
 ): Type<StructType<T>> {

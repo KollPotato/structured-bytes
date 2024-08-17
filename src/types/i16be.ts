@@ -1,5 +1,8 @@
 import type { Type } from "../type"
 
+/**
+ * @description signed 16-bit big-endian integer
+ */
 export const i16be: Type<number> = {
     size(_value) {
         return 2

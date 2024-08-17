@@ -1,5 +1,8 @@
 import type { Type } from "../type"
 
+/**
+ * @description unsigned 32-bit big-endian integer
+ */
 export const u32be: Type<number> = {
     size(_value) {
         return 4
